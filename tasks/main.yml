@@ -1,0 +1,5 @@
+- name: put values
+  template: src=values.yml dest=/tmp/stable-{{ hazelcast_helm_release }}.yml
+
+- name: upgrade {{ hazelcast_helm_release }} release using a Helm chart
+  shell: export KUBECONFIG=/etc/kubernetes/admin.conf && helm upgrade {{ hazelcast_helm_release }} stable/hazelcast --install --namespace {{ hazelcast_namespace }} -f /tmp/stable-{{ hazelcast_helm_release }}.yml
